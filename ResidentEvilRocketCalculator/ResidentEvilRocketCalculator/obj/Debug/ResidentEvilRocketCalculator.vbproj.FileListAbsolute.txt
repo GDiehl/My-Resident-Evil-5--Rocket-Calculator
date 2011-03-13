@@ -1,0 +1,10 @@
+C:\Users\Greg\Desktop\RocketCalc\ResidentEvilRocketCalculator\ResidentEvilRocketCalculator\bin\Debug\ResidentEvilRocketCalculator.exe
+C:\Users\Greg\Desktop\RocketCalc\ResidentEvilRocketCalculator\ResidentEvilRocketCalculator\bin\Debug\ResidentEvilRocketCalculator.pdb
+C:\Users\Greg\Desktop\RocketCalc\ResidentEvilRocketCalculator\ResidentEvilRocketCalculator\bin\Debug\ResidentEvilRocketCalculator.xml
+C:\Users\Greg\Desktop\RocketCalc\ResidentEvilRocketCalculator\ResidentEvilRocketCalculator\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Greg\Desktop\RocketCalc\ResidentEvilRocketCalculator\ResidentEvilRocketCalculator\obj\Debug\ResidentEvilRocketCalculator.Resources.resources
+C:\Users\Greg\Desktop\RocketCalc\ResidentEvilRocketCalculator\ResidentEvilRocketCalculator\obj\Debug\ResidentEvilRocketCalculator.vbproj.GenerateResource.Cache
+C:\Users\Greg\Desktop\RocketCalc\ResidentEvilRocketCalculator\ResidentEvilRocketCalculator\obj\Debug\ResidentEvilRocketCalculator.exe
+C:\Users\Greg\Desktop\RocketCalc\ResidentEvilRocketCalculator\ResidentEvilRocketCalculator\obj\Debug\ResidentEvilRocketCalculator.xml
+C:\Users\Greg\Desktop\RocketCalc\ResidentEvilRocketCalculator\ResidentEvilRocketCalculator\obj\Debug\ResidentEvilRocketCalculator.pdb
+C:\Users\Greg\Desktop\RocketCalc\ResidentEvilRocketCalculator\ResidentEvilRocketCalculator\obj\Debug\ResidentEvilRocketCalculator.frmRocketCalculator.resources
