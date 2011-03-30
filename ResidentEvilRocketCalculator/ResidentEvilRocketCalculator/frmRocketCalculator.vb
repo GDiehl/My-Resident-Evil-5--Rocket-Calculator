@@ -1,6 +1,6 @@
 ﻿'Application Name:  Resident Evil 5 Rocket Calculator
 'Author:            Greg Diehl
-'Date:              3/11/2011
+'Date:              3/30/2011
 'Purpose:           This is a simple calculator that allows the user to input their completed time
 '                   for each level and then calculate how much time they need to shave off in order
 '                   to unlock the infinite rockets.  If they are under the 5 hours required, then it 
@@ -13,7 +13,7 @@ Public Class frmRocketCalculator
     Dim _intTotalSeconds As Integer = 0
     Const _intFiveHours As Integer = (5 * 60) * 60
     Private Sub frmRocketCalculator_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        Call LoadFile()
+        Call LoadFile(Me)
     End Sub
     Private Sub btnCalculate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCalculate.Click
 
@@ -107,7 +107,10 @@ Public Class frmRocketCalculator
         Dim Total As Integer
 
         Try
-            If Hours = "" Then
+            If Hours = "" Or Hours = " " Then
+                Hours = "0"
+            ElseIf Hours = "M" Or Hours = "m" Then
+                MsgBox("Hello, Michelle!", , "Why, hello there.")
                 Hours = "0"
             End If
             If IsNumeric(Hours) Then
@@ -131,8 +134,11 @@ Public Class frmRocketCalculator
         Dim Total As Integer
 
         Try
-            If Minutes = "" Then
+            If Minutes = "" Or Minutes = " " Then
                 Minutes = "0"
+            ElseIf Minutes = "M" Or Minutes = "m" Then
+                MsgBox("Hello, Michelle!", , "Why, hello there.")
+
             End If
             If IsNumeric(Minutes) Then
                 If CInt(Minutes) < 0 Then
@@ -151,8 +157,12 @@ Public Class frmRocketCalculator
         'was a number and then converts the string to an integer.
 
         Try
-            If Seconds = "" Then
+            If Seconds = "" Or Seconds = " " Then
                 Seconds = "0"
+            ElseIf Seconds = "M" Or Seconds = "m" Then
+                MsgBox("Hello, Michelle!", , "Why, hello there.")
+                Seconds = "0"
+
             End If
             If IsNumeric(Seconds) Then
                 Convert.ToInt32(Seconds)
@@ -238,7 +248,7 @@ Public Class frmRocketCalculator
     End Sub
     Private Sub btnExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExit.Click
         'Exits application
-        Call SaveFile()
+        Call SaveFile(Me)
         Me.Close()
     End Sub
     Public Sub Clear()
@@ -253,52 +263,52 @@ Public Class frmRocketCalculator
                             "Unlocked" & vbCrLf & _
                             "Rockets"
     End Sub
-    Private Sub LoadFile()
+    Private Sub LoadFile(ByVal Page As Control)
         If File.Exists("Data.re5") Then
-            Dim fsFillData As New FileStream("Data.re5", FileMode.Open, FileAccess.Write)
+            Dim fsFillData As New FileStream("Data.re5", FileMode.Open, FileAccess.Read)
             Dim srFillData As New StreamReader(fsFillData)
+            Dim FillData(47) As String
+            Dim intCounter As Integer = 0
 
-            txtHours1_1.Text = srFillData.ReadLine.ToString
-            txtHours1_2.Text = srFillData.ReadLine.ToString
-            txtHours2_1.Text = srFillData.ReadLine.ToString
-            txtHours2_2.Text = srFillData.ReadLine.ToString
-            txtHours2_3.Text = srFillData.ReadLine.ToString
-            txtHours3_1.Text = srFillData.ReadLine.ToString
-            txtHours3_2.Text = srFillData.ReadLine.ToString
-            txtHours3_3.Text = srFillData.ReadLine.ToString
-            txtHours4_1.Text = srFillData.ReadLine.ToString
-            txtHours4_2.Text = srFillData.ReadLine.ToString
-            txtHours5_1.Text = srFillData.ReadLine.ToString
-            txtHours5_2.Text = srFillData.ReadLine.ToString
-            txtHours5_3.Text = srFillData.ReadLine.ToString
-            txtHours6_1.Text = srFillData.ReadLine.ToString
-            txtHours6_2.Text = srFillData.ReadLine.ToString
-            txtHours6_3.Text = srFillData.ReadLine.ToString
+            Do Until intCounter > FillData.Length - 1
+                FillData(intCounter) = srFillData.ReadLine.ToString
+                intCounter += 1
+            Loop
 
+            intCounter = 0
+
+            For Each cntrl As Control In Page.Controls
+                If TypeOf cntrl Is TextBox Then
+                    cntrl.Text = FillData(intCounter)
+                    intCounter += 1
+                End If
+            Next
             srFillData.Close()
             fsFillData.Close()
         End If
     End Sub
-    Private Sub SaveFile()
+    Private Sub SaveFile(ByVal Page As Control)
         Dim fsSaveData As New FileStream("Data.re5", FileMode.OpenOrCreate, FileAccess.Write)
         Dim swSaveData As New StreamWriter(fsSaveData)
+        Dim FillValue(47) As String
+        Dim intCounter As Integer = 0
 
-        swSaveData.WriteLine(txtHours1_1.Text)
-        swSaveData.WriteLine(txtHours1_2.Text)
-        swSaveData.WriteLine(txtHours2_1.Text)
-        swSaveData.WriteLine(txtHours2_2.Text)
-        swSaveData.WriteLine(txtHours2_3.Text)
-        swSaveData.WriteLine(txtHours3_1.Text)
-        swSaveData.WriteLine(txtHours3_2.Text)
-        swSaveData.WriteLine(txtHours3_3.Text)
-        swSaveData.WriteLine(txtHours4_1.Text)
-        swSaveData.WriteLine(txtHours4_2.Text)
-        swSaveData.WriteLine(txtHours5_1.Text)
-        swSaveData.WriteLine(txtHours5_2.Text)
-        swSaveData.WriteLine(txtHours5_3.Text)
-        swSaveData.WriteLine(txtHours6_1.Text)
-        swSaveData.WriteLine(txtHours6_2.Text)
-        swSaveData.WriteLine(txtHours6_3.Text)
+        For Each cntrl As Control In Page.Controls
+            If TypeOf cntrl Is TextBox Then
+                FillValue(intCounter) = cntrl.Text
+                intCounter += 1
+            End If
+        Next
+
+        intCounter = 0
+
+        Do Until intCounter > (FillValue.Length - 1)
+            If FillValue(intCounter) = "" Then
+                FillValue(intCounter) = " "
+            End If
+            swSaveData.WriteLine(FillValue(intCounter))
+            intCounter += 1
+        Loop
 
         swSaveData.Close()
         fsSaveData.Close()
